@@ -1,22 +1,17 @@
-(function(){
-  function ModalCtrl(Room,$scope){
-    
-    
-    <!--Add methods to open, close and submit data to Firebase from the modal-->
-    $scope.newRoom = {}
-    $scope.newRoom.name="";
-    
-    $scope.closeModal=function(){
-      $uibModalInstance.close()
-    }
-    $scope.submitModal=function(){
-      $uibModalInstance.close($scope.newRoom);
+(function() {
+    function ModalCtrl(Room, $uibModalInstance) {
+        this.cancel = function() {
+            $uibModalInstance.dismiss();
+        };
+        
+        this.submit = function() {
+            Room.add(this.newRoom);
+            $uibModalInstance.close();
+            console.log(this.newRoom.name);
+        };
     }
     
-    
-  }
-  
-  angular
-    .module('blocChat')
-    .controller('ModalCtrl',['$uibModalInstance'])
+    angular
+        .module('blocChat')
+        .controller('ModalCtrl', ['Room', '$uibModalInstance', ModalCtrl]);
 })();
